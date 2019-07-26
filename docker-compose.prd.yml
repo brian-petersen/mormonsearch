@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  app:
+    image: brianpetersen/mormonsearch
+    restart: always
+    networks:
+      - web
+    labels:
+      - traefik.backend=mormonsearch
+      - traefik.docker.network=web
+      - traefik.frontend.rule=Host:mormonsearch.luckywatcher.dev
+      - traefik.enable=true
+      - traefik.port=80
+    container_name: mormonsearch
+
+networks:
+  web:
+    external: true
