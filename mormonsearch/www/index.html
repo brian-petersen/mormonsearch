@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mormon Search</title>
+    <link rel="stylesheet" href="assets/vendor/normalize.css">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <div id="app">
+        <form v-on:submit.prevent="onSubmit">
+            <input type="text" placeholder="Search..." v-model="query">
+            <button type="submit">
+                <img src="assets/vendor/search.svg">
+            </button>
+        </form>
+    
+        <div v-if="verses.length > 0" id="results">
+            <p id="context">
+                Showing {{ verses.length }} of {{ verseSearchCount }} results.
+                <a v-on:click.prevent="onShowAll" v-if="verses.length != verseSearchCount" href="#">Show all results</a>
+                <a v-bind:href="csvUrl" target="_blank">Show as CSV</a>
+            </p>
+
+            <div v-for="verse in verses" class="result">
+                <p>
+                    {{ verse.text }} &mdash; <span>{{ verse.reference }}</span>
+                </p>
+            </div>
+        </div>
+        <div v-else-if="!hasSearched" id="results">
+            Time to start searching!
+        </div>
+        <div v-else id="results">
+            No search results were found! Try another query.
+        </div>
+    </div>
+
+    <script type="module" src="assets/main.js"></script>
+</body>
+</html>
