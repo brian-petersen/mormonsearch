@@ -1,10 +1,11 @@
-image: docker:19.03.1
+image: debian:10.2-slim
 
 stages:
   - build
   - deploy
 
 build:
+  image: docker:19.03.1
   stage: build
   services:
     - docker:19.03.1-dind
@@ -14,6 +15,24 @@ build:
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker push $CI_REGISTRY_IMAGE:latest
-  only: 
+  only:
     refs:
       - master
+
+trigger_deploy:
+  stage: deploy
+  script:
+    # Install curl
+    - 'which curl || (apt-get update -y && apt-get install curl -y)'
+
+    # Trigger pipeline in mister-deploy project
+    - curl
+      --request POST
+      --form token=$CI_JOB_TOKEN
+      --form ref=master
+      --form variables[SERVICE_NAME]=mormonsearch
+      https://gitlab.com/api/v4/projects/16132375/trigger/pipeline
+  only:
+    refs:
+      - master
+  when: manual
