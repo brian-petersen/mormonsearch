@@ -1,21 +1,21 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
-    color: #fff;
+    color: #F7F8F5;
 }
 
 a {
-    color: #dfdce3;
+    color: #D0D0D0;
 }
 
 body {
-    background-color: #4abdac;
+    background-color: #3E4765;
     padding: 20px;
 }
 
 form {
     margin: 0 auto;
     max-width: 400px;
-    background: #fc4a1a;
+    background: #BF7A90;
     padding: 10px;
     display: flex;
     border-radius: 4px;
@@ -24,18 +24,20 @@ form {
 form input {
     width: 100%;
     border: none;
+    outline: none;
     background: none;
     font-size: 175%;
     margin-right: 10px;
 }
 
 form input::placeholder {
-    color: #ffffff;
+    color: #F7F8F5;
     opacity: .7;
 }
 
 form button {
     border: none;
+    outline: none;
     background: none;
 }
 
@@ -57,4 +59,5 @@ form img:hover {
 
 #results #context {
     font-style: italic;
+    margin-bottom: 30px;
 }
